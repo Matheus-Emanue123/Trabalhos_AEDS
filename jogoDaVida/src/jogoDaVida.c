@@ -7,11 +7,10 @@
 
 void inicializar_tabuleiro(int tabuleiro[N][N]) {
     srand(time(NULL));
-    int N = rand() % 16 + 5; // Gera um número aleatório entre 5 e 20
+    int N = rand() % 16 + 5;
     int x = (N * N) / 3;
     int count = 0;
 
-    // Preenche a matriz com 0s e 1s
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             if (count < x) {
@@ -23,7 +22,6 @@ void inicializar_tabuleiro(int tabuleiro[N][N]) {
         }
     }
 
-    // Embaralha a matriz
     for (int i = N - 1; i > 0; i--) {
         for (int j = N - 1; j > 0; j--) {
             int i2 = rand() % (i + 1);
@@ -34,8 +32,7 @@ void inicializar_tabuleiro(int tabuleiro[N][N]) {
         }
     }
 
-    // Salva a matriz no arquivo input.mps
-    FILE *arquivo = fopen("datasets/input.mps", "w");
+    FILE *arquivo = fopen("jogoDaVida/datasets/input.mps", "w");
     if (arquivo == NULL) {
         printf("Não foi possível abrir o arquivo input.mps\n");
         exit(1);

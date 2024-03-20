@@ -2,7 +2,7 @@
 
 int main() {
 
-    int tabuleiro[N][N];
+    int tabuleiro** = (int**) malloc(10 * sizeof(int*));
     
     inicializar_tabuleiro(tabuleiro);
     for (int i = 0; i < 10; i++) {

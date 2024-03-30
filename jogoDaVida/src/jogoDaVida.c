@@ -1,93 +1,145 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <string.h>
 #include "jogoDaVida.h"
 
+int verificaVizinhos(int **matriz, int linha, int coluna, int N) {
+    int direcaoLinha[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+    int direcaoColuna[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+    int vizinhosVivos = 0;
 
+    for (int i = 0; i < 8; i++) {
+        int novaLinha = linha + direcaoLinha[i], novaColuna = coluna + direcaoColuna[i];
+        if (novaLinha >= 0 && novaLinha < N && novaColuna >= 0 && novaColuna < N && matriz[novaLinha][novaColuna]) {
+            vizinhosVivos++;
+        }
+    }
 
-void inicializar_tabuleiro(int tabuleiro[N][N]) {
-    srand(time(NULL));
-    int N = rand() % 16 + 5;
-    int x = (N * N) / 3;
-    int count = 0;
+    return vizinhosVivos;
+}
+
+void aplicaRegras(int **matriz, int N) {
+    int **novaMatriz;
+
+    novaMatriz = (int **)malloc(N * sizeof(int *));
+    for (int i = 0; i < N; i++) {
+        novaMatriz[i] = (int *)malloc(N * sizeof(int));
+    }
 
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
-            if (count < x) {
-                tabuleiro[i][j] = 1;
-                count++;
-            } else {
-                tabuleiro[i][j] = 0;
+            novaMatriz[i][j] = matriz[i][j];
+        }
+    }
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            int vizinhosVivos = verificaVizinhos(matriz, i, j, N);
+
+            if (matriz[i][j] && (vizinhosVivos < 2 || vizinhosVivos > 3)) {
+                novaMatriz[i][j] = 0;
+            }
+            else if (!matriz[i][j] && vizinhosVivos == 3) {
+                novaMatriz[i][j] = 1;
             }
         }
     }
 
-    for (int i = N - 1; i > 0; i--) {
-        for (int j = N - 1; j > 0; j--) {
-            int i2 = rand() % (i + 1);
-            int j2 = rand() % (j + 1);
-            int temp = tabuleiro[i][j];
-            tabuleiro[i][j] = tabuleiro[i2][j2];
-            tabuleiro[i2][j2] = temp;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            matriz[i][j] = novaMatriz[i][j];
         }
     }
 
-    FILE *arquivo = fopen("jogoDaVida/datasets/input.mps", "w");
-    if (arquivo == NULL) {
-        printf("Não foi possível abrir o arquivo input.mps\n");
-        exit(1);
-    }
     for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            fprintf(arquivo, "%d ", tabuleiro[i][j]);
-        }
-        fprintf(arquivo, "\n");
+        free(novaMatriz[i]);
     }
-    fclose(arquivo);
+    free(novaMatriz);
 }
 
-void exibir_tabuleiro(int tabuleiro[N][N]) {
+void imprimeMatriz(int **matriz, int N) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
-            printf("%d ", tabuleiro[i][j]);
+            printf("%d ", matriz[i][j]);
         }
         printf("\n");
     }
 }
 
-void salvar_em_arquivo(int tabuleiro[N][N], char *nome_arquivo) {
-    FILE *arquivo = fopen(nome_arquivo, "a");
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            fprintf(arquivo, "%d ", tabuleiro[i][j]);
-        }
-        fprintf(arquivo, "\n");
-    }
-    fprintf(arquivo, "\n");
-    fclose(arquivo);
-}
+void executarJogoDaVida() {
+    int N = 0;
+    int **matriz;
+    int numGeracoes;
 
-void proxima_geracao(int tabuleiro[N][N]) {
-    int novo_tabuleiro[N][N];
+    printf("Digite o número de gerações: ");
+    scanf("%d", &numGeracoes);
+
+    FILE *arquivo = fopen("datasets/input.mps", "r");
+    if (arquivo == NULL) {
+        printf("Não foi possível abrir o arquivo.\n");
+        return;
+    }
+
+    char linha[1024];
+    fgets(linha, sizeof(linha), arquivo);
+
+    char *token = strtok(linha, " ");
+    while (token != NULL) {
+        N++;
+        token = strtok(NULL, " ");
+    }
+
+    if (N < 5) {
+        printf("A matriz não é válida.\n");
+        return;
+    }
+
+    matriz = (int **)malloc(N * sizeof(int *));
+    for (int i = 0; i < N; i++) {
+        matriz[i] = (int *)malloc(N * sizeof(int));
+    }
+
+    rewind(arquivo);
+
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
-            int vizinhos_vivos = 0;
-            for (int di = -1; di <= 1; di++) {
-                for (int dj = -1; dj <= 1; dj++) {
-                    if (di == 0 && dj == 0) continue;
-                    int ni = i + di;
-                    int nj = j + dj;
-                    if (ni >= 0 && ni < N && nj >= 0 && nj < N && tabuleiro[ni][nj] == 1) {
-                        vizinhos_vivos++;
-                    }
-                }
+            if (!fscanf(arquivo, "%d", &matriz[i][j])) {
+                break;
             }
-            novo_tabuleiro[i][j] = (tabuleiro[i][j] == 1 && vizinhos_vivos >= 2 && vizinhos_vivos <= 3) || (tabuleiro[i][j] == 0 && vizinhos_vivos == 3);
         }
     }
+
+    fclose(arquivo);
+
+    FILE *saida = fopen("datasets/geracoes.mps", "w");
+    if (saida == NULL) {
+        printf("Não foi possível abrir o arquivo de saída.\n");
+        return;
+    }
+
+    fprintf(saida, "Geração Inicial:\n");
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
-            tabuleiro[i][j] = novo_tabuleiro[i][j];
+            fprintf(saida, "%d ", matriz[i][j]);
+        }
+        fprintf(saida, "\n");
+    }
+
+    for (int g = 0; g < numGeracoes; g++) {
+        aplicaRegras(matriz, N);
+        fprintf(saida, "Geração %d:\n", g + 1);
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                fprintf(saida, "%d ", matriz[i][j]);
+            }
+            fprintf(saida, "\n");
         }
     }
+
+    fclose(saida);
+
+    for (int i = 0; i < N; i++) {
+        free(matriz[i]);
+    }
+    free(matriz);
 }

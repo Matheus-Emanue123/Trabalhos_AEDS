@@ -37,7 +37,9 @@ Os arquivos criados para o funcionamento do projeto estão dispostos da seguinte
     - `jogoDaVida.h`: Arquivo de cabeçalho para `jogoDaVida.c`.
   - `README.md`: Este arquivo.
   - `Makefile`: Makefile para compilar o projeto.
-  - `script.sh`: Script shell, que pode ser rodado com um `./run.sh`, que limpa os arquivos de entrada e saída, gera uma matriz aleatória e a insere no arquivo de entrada e então roda os comandos do makefile 
+  - `script.sh`: Script shell, que pode ser rodado com um `./run.sh`, 
+  que limpa os arquivos de entrada e saída, gera uma matriz aleatória 
+  e a insere no arquivo de entrada e então roda os comandos do makefile 
   para a linguagem C.
   ```
 
@@ -45,15 +47,15 @@ Os arquivos criados para o funcionamento do projeto estão dispostos da seguinte
 
 O código foi desenvolvido utilizando as seguintes ferramentas:
 
-[![Linguagem](https://img.shields.io/badge/Linguagem-C-blue)](#)
+[![Linguagem](https://img.shields.io/badge/Linguagem-C-blue)](https://www.w3schools.com/c/c_intro.php)
 [![IDE](https://img.shields.io/badge/IDE-Visual%20Studio%20Code-blueviolet)](https://code.visualstudio.com/docs/?dv=linux64_deb)
-[![ISO](https://img.shields.io/badge/ISO-Ubuntu%20Linux%2022.04-red)](#)
+[![ISO](https://img.shields.io/badge/ISO-Ubuntu%20Linux%2022.04-red)](https://ubuntu.com/)
 
 ## Implementação
 
 ### Funções
 
-#### `verificaVizinhos(int **matriz, int linha, int coluna, int N)`
+#### `verificaVizinhos (int **matriz, int linha, int coluna, int N)`
 
 Esta função verifica os vizinhos de uma célula específica na matriz. Ela retorna o número de vizinhos vivos ao redor da célula na posição (linha, coluna).
 
@@ -74,6 +76,63 @@ int verificaVizinhos(int **matriz, int linha, int coluna, int N) {
 }
 ```
 
+#### aplicaRegras (int **matriz, int N)
+Esta função aplica as regras do Jogo da Vida para a matriz atual. Ela cria uma nova matriz, copia o estado atual da matriz original para a nova matriz e então aplica as regras do Jogo da Vida. Após aplicar as regras, ela atualiza a matriz original com o estado da nova matriz.
+
+```c
+void aplicaRegras(int **matriz, int N) {
+    int **novaMatriz;
+
+    novaMatriz = (int **)malloc(N * sizeof(int *));
+    for (int i = 0; i < N; i++) {
+        novaMatriz[i] = (int *)malloc(N * sizeof(int));
+    }
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            novaMatriz[i][j] = matriz[i][j];
+        }
+    }
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            int vizinhosVivos = verificaVizinhos(matriz, i, j, N);
+
+            if (matriz[i][j] && (vizinhosVivos < 2 || vizinhosVivos > 3)) {
+                novaMatriz[i][j] = 0;
+            }
+            else if (!matriz[i][j] && vizinhosVivos == 3) {
+                novaMatriz[i][j] = 1;
+            }
+        }
+    }
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            matriz[i][j] = novaMatriz[i][j];
+        }
+    }
+
+    for (int i = 0; i < N; i++) {
+        free(novaMatriz[i]);
+    }
+    free(novaMatriz);
+}
+```
+
+#### imprimeMatriz (int **matriz, int N)
+Esta função imprime a matriz atual no arquivo de saída.
+
+```c
+void imprimeMatriz(int **matriz, int N) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            printf("%d ", matriz[i][j]);
+        }
+        printf("\n");
+    }
+}
+```
 ## Curiosidades
 Existem várias configurações interessantes no Jogo da Vida, como os "osciladores". Um exemplo é o 4x4 de 1, que... (descreva a curiosidade aqui).
 

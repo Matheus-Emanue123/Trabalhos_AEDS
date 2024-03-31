@@ -71,9 +71,6 @@ void executarJogoDaVida() {
     int **matriz;
     int numGeracoes;
 
-    printf("Digite o número de gerações: ");
-    scanf("%d", &numGeracoes);
-
     FILE *arquivo = fopen("datasets/input.mps", "r");
     if (arquivo == NULL) {
         printf("Não foi possível abrir o arquivo.\n");
@@ -90,9 +87,13 @@ void executarJogoDaVida() {
     }
 
     if (N < 5) {
-        printf("A matriz não é válida.\n");
+        printf("A matriz não é válida, pois sua ordem é inferior a 5.\n");
         return;
     }
+
+    else{
+        printf("Digite o número de gerações: ");
+    scanf("%d", &numGeracoes);}
 
     matriz = (int **)malloc(N * sizeof(int *));
     for (int i = 0; i < N; i++) {

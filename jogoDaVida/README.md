@@ -11,6 +11,8 @@
 ## ☕ Introdução
 O Jogo da Vida é um autômato celular concebido pelo matemático britânico John Horton Conway e m 1970. É um jogo de zero jogadores, o que significa que sua evolução é determinada por seu estado inicial, não necessitando de nenhuma entrada de dados posterior.
 
+Este trabalho foi proposto pelo professor Dr
+
 ## 🎯 Objetivos
 O objetivo deste exercício é utilizar conhecimentos de programação para manipular uma matriz 2D de células, seguindo as regras do Jogo da Vida. As regras são as seguintes: 
 
@@ -25,7 +27,7 @@ O código foi desenvolvido utilizando as seguintes ferramentas:
 
 [![Linguagem](https://img.shields.io/badge/Linguagem-C-blue)](https://www.w3schools.com/c/c_intro.php)
 [![IDE](https://img.shields.io/badge/IDE-Visual%20Studio%20Code-blueviolet)](https://code.visualstudio.com/docs/?dv=linux64_deb)
-[![ISO](https://img.shields.io/badge/ISO-Ubuntu%20Linux%2022.04-red)](https://ubuntu.com/)
+[![Sistema Operacional](https://img.shields.io/badge/ISO-Ubuntu%20Linux%2022.04-red)](https://ubuntu.com/)
 
 ## 📂 Organização dos Arquivos
 Os arquivos criados para o funcionamento do projeto estão dispostos da seguinte maneira do diretório:
@@ -52,8 +54,6 @@ Os arquivos criados para o funcionamento do projeto estão dispostos da seguinte
   - `run2.sh`: Script shell que realiza a mesma coisa que o `run1.sh`, 
   mas quando o usuário deseja compilar de maneira diferente. 
   ```
-  [Verificar o tipo de compilação desejada](#compilação)
-
 ## 💡 Implementação
 
 ### Funções
@@ -245,7 +245,7 @@ A matriz não é válida, pois sua ordem é inferior a 5
 ```
 
 ## 🤔 Curiosidades - Osciladores
-Durante os testes do projeto, foi percebido que no Jogo da Vida de Conway, existem certos padrões, que retornam ao seu estado inicial depois de finitas gerações. Após algumas pesquisas, foi descoberto que esse padrão é chamado de oscilador. Embora não faça parte do objetivo do trabalho proposto estudar esses osciladores, achei interessante abordar sobre eles. Seus tipos mais conhecidos são:
+Durante os testes do projeto foi percebido que no Jogo da Vida de Conway existem certos padrões, que retornam ao seu estado inicial depois de finitas gerações. Após algumas pesquisas, foi descoberto que esse padrão é chamado de oscilador. Embora não faça parte do objetivo do trabalho proposto estudar esses osciladores, achei interessante abordar sobre eles. Seus tipos mais conhecidos são:
 
 **1 - Blinker**
 
@@ -452,7 +452,7 @@ O projeto demonstrou a aplicação de conceitos de programação, como loops, co
 
 Espera-se que este projeto sirva como um recurso útil para quem está aprendendo programação e para quem está interessado em autômatos celulares e em simulações de sistemas complexos.
 
-Agradeço por seu interesse em no projeto e convido você a contribuir com melhorias e extensões.
+Agradeço por seu interesse no projeto e convido você a contribuir com melhorias e extensões.
 
 ## 💭 Créditos
 

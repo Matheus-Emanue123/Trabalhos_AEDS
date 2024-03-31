@@ -464,7 +464,7 @@ Este projeto usa um Makefile fornecido pelo professor [Michel Pires Silva](https
 Se você tiver alguma dúvida ou sugestão, sinta-se à vontade para entrar em contato comigo. Aqui estão algumas maneiras de fazer isso:
 
 - Email: [memanuel643@gmail.com](mailto:memanuel643@gmail.com)
-- LinkedIn: [Matheus Silva](www.linkedin.com/in/matheus-silva-emanuel)
+- LinkedIn: [Matheus Silva](https://www.linkedin.com/in/matheus-silva-emanuel)
 - Instagram: [@mat_emanuel9](https://www.instagram.com/mat_emanuel9/)
 - GitHub: [Matheus Emanuel](https://github.com/Matheus-Emanue123)
 

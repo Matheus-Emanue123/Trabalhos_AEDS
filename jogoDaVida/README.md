@@ -11,9 +11,10 @@
 ## ☕ Introdução
 O Jogo da Vida é um autômato celular concebido pelo matemático britânico John Horton Conway e m 1970. É um jogo de zero jogadores, o que significa que sua evolução é determinada por seu estado inicial, não necessitando de nenhuma entrada de dados posterior.
 
-Este trabalho foi proposto pelo professor Dr
+Este trabalho foi proposto pelo professor Michel Pires Silva, da matéria Algoritmos e Estrutura de Dados I, do Centro Federal de Educação Tecnológica de Minas Gerais (CEFET - MG), Campus V - Divinópolis.
 
 ## 🎯 Objetivos
+
 O objetivo deste exercício é utilizar conhecimentos de programação para manipular uma matriz 2D de células, seguindo as regras do Jogo da Vida. As regras são as seguintes: 
 
 - Uma célula viva com menos de dois vizinhos vivos morre (solidão).

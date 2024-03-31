@@ -8,35 +8,6 @@
 
 </div>
 
-<h2 align="center"> Sumário </h2>
-    <h4 align="center"> 
-        
- [Introdução](#introdução)
-
- [Objetivos](#objetivos)
-
- [Ambiente de Criação](#ambiente-de-criação)
-  
- [Organização dos Arquivos](#organização-dos-arquivos)
-
- [Implementação](#implementação)
-
- [Arquivos adicionais](#arquivos-adicionais)
-
- [Casos de Teste](#casos-de-teste)
-
- [Curiosidades - Osciladores](#curiosidades---osciladores)
-
- [Ambiente de Testes](#ambiente-de-testes)
-
- [Compilação e Execução](#compilação-e-execução)
-
- [Conclusão](#Conclusão)
-
- [Créditos](#Créditos)
-
- [Contato](#contato)
-
 ## ☕ Introdução
 O Jogo da Vida é um autômato celular concebido pelo matemático britânico John Horton Conway e m 1970. É um jogo de zero jogadores, o que significa que sua evolução é determinada por seu estado inicial, não necessitando de nenhuma entrada de dados posterior.
 

@@ -41,8 +41,38 @@ Os arquivos criados para o funcionamento do projeto estão dispostos da seguinte
   para a linguagem C.
   ```
 
+## Ambiente de Criação
+
+O código foi desenvolvido utilizando as seguintes ferramentas:
+
+[![Linguagem](https://img.shields.io/badge/Linguagem-C-blue)](#)
+[![IDE](https://img.shields.io/badge/IDE-Visual%20Studio%20Code-blueviolet)](https://code.visualstudio.com/docs/?dv=linux64_deb)
+[![ISO](https://img.shields.io/badge/ISO-Ubuntu%20Linux%2022.04-red)](#)
+
 ## Implementação
-Nossa implementação consiste em... (descreva a implementação aqui, explicando cada função).
+
+### Funções
+
+#### `verificaVizinhos(int **matriz, int linha, int coluna, int N)`
+
+Esta função verifica os vizinhos de uma célula específica na matriz. Ela retorna o número de vizinhos vivos ao redor da célula na posição (linha, coluna).
+
+```c
+int verificaVizinhos(int **matriz, int linha, int coluna, int N) {
+    int direcaoLinha[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+    int direcaoColuna[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+    int vizinhosVivos = 0;
+
+    for (int i = 0; i < 8; i++) {
+        int novaLinha = linha + direcaoLinha[i], novaColuna = coluna + direcaoColuna[i];
+        if (novaLinha >= 0 && novaLinha < N && novaColuna >= 0 && novaColuna < N && matriz[novaLinha][novaColuna]) {
+            vizinhosVivos++;
+        }
+    }
+
+    return vizinhosVivos;
+}
+```
 
 ## Curiosidades
 Existem várias configurações interessantes no Jogo da Vida, como os "osciladores". Um exemplo é o 4x4 de 1, que... (descreva a curiosidade aqui).
@@ -53,8 +83,3 @@ Existem duas maneiras de compilar e executar o programa:
 1. **Compilar gerando a matriz aleatoriamente**: Após instalar Python e NumPy, você pode usar o script shell para gerar uma matriz aleatória. Basta executar `./run.sh` no terminal, fornecer a quantidade de gerações e a matriz será gerada aleatoriamente.
 
 2. **Utilizar matriz própria**: Se você quiser usar sua própria matriz, pode inseri-la no arquivo `input.mps` e executar `make` e `make run` no terminal.
-
-
-Neste exemplo, cada item indenta é um subdiretório ou arquivo do item acima dele. Você pode ajustar isso para refletir a estrutura real do seu projeto.
-
-Se você quiser adicionar descrições para cada arquivo ou diretório, você pode fazer isso em uma lista. Aqui está um exemplo:

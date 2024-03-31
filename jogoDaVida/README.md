@@ -37,7 +37,7 @@ Os arquivos criados para o funcionamento do projeto estão dispostos da seguinte
     - `jogoDaVida.h`: Arquivo de cabeçalho para `jogoDaVida.c`.
   - `README.md`: Este arquivo.
   - `Makefile`: Makefile para compilar o projeto.
-  - `script.sh`: Script shell, que pode ser rodado com um `./run.sh`, 
+  - `run.sh`: Script shell, que pode ser rodado com um `./run.sh`, 
   que limpa os arquivos de entrada e saída, gera uma matriz aleatória 
   e a insere no arquivo de entrada e então roda os comandos do makefile 
   para a linguagem C.
@@ -133,6 +133,45 @@ void imprimeMatriz(int **matriz, int N) {
     }
 }
 ```
+
+## Exemplos de Uso
+
+Aqui estão alguns exemplos de entradas e saídas esperadas:
+
+### Exemplo 1
+
+**Entrada:**
+
+Suponha que temos a seguinte matriz como entrada:
+
+```
+0 1 0 0 1 1
+1 1 1 0 1 1
+0 1 1 0 0 1
+1 1 1 1 0 1
+1 0 1 1 1 0
+0 1 1 0 0 1
+```
+
+**Saída:**
+
+A saída para caso o jogador escolha 5 gerações a serem feitas é:
+
+```
+
+Geração Inicial:        Geração 1:        Geração 2:        Geração 3:        
+
+0 1 0 0 1 1             1 1 1 1 1 1       1 1 1 1 1 0       1 0 0 0 1 0         
+1 1 1 0 1 1             1 0 0 0 0 0       1 0 1 1 0 1       1 0 0 0 0 0   
+0 1 1 0 0 1             0 0 0 0 0 1       0 0 0 0 0 0       0 0 0 1 0 1    
+1 1 1 1 0 1             1 0 0 0 0 1       0 0 0 0 1 1       0 0 0 0 1 1   
+1 0 1 1 1 0             1 0 0 0 0 1       1 0 0 0 1 1       0 0 0 0 1 1           
+0 1 1 0 0 1             0 1 1 0 1 0       0 1 0 0 0 0       0 0 0 0 0 0         
+
+```
+
+
+
 ## Curiosidades
 Existem várias configurações interessantes no Jogo da Vida, como os "osciladores". Um exemplo é o 4x4 de 1, que... (descreva a curiosidade aqui).
 

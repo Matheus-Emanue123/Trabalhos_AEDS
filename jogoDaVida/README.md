@@ -443,7 +443,13 @@ Novamente, caso você não tenha as permissões de escrita do script, será nece
 sudo chmod +x run2.sh
 ```
 
-Isso irá apagar todo o conteúdo dos arquivos de entrada `input.mps` e de saída `geracoes.mps`. Após isso, irá limpar a pasta build, que contém o resultado da compilação anterior, caso exista, e realiza uma nova compilação, inserindo o resultado desta na pasta build, e então ler a primeira linha da matriz para verificar se ela é de ordem maior ou igual a 5, caso seja válida, o usuário fornece no console a quantidade N de gerações que deseja, e o resultado é impresso no arquivo geracoes.mps.
+Após isso, basta executar o seguinte comando em seu terminal:
+
+```
+./run2.sh
+```
+
+Isso irá apagar todo o conteúdo dos arquivo de saída `geracoes.mps`. Após isso, irá limpar a pasta build, que contém o resultado da compilação anterior, caso exista, e realiza uma nova compilação, inserindo o resultado desta na pasta build, e então ler a primeira linha da matriz para verificar se ela é de ordem maior ou igual a 5, caso seja válida, o usuário fornece no console a quantidade N de gerações que deseja, e o resultado é impresso no arquivo geracoes.mps.
 
 ## 🔚 Conclusão 
 

@@ -31,8 +31,8 @@ Cada pasta neste repositório representa um trabalho diferente. Aqui está uma v
 
 ## 📚 Recursos utilizados
 
-[![IDE][vscode-badge]][vscode-url]
-[![Linguagem][cpp-badge]][cpp-url]
+![VSCode](https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 ![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 

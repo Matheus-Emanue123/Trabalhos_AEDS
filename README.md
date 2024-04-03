@@ -10,7 +10,7 @@
 
 ## ☕ Introdução
 
-Este repositório contém todos os meus trabalhos para a disciplina de Algoritmos e Estruturas de Dados. Cada trabalho está em sua própria pasta, com seu próprio README detalhando o que foi feito.
+Este repositório contém todos os meus trabalhos para a disciplina de Algoritmos e Estruturas de Dados, do CEFET - MG Campus V. Cada trabalho está em sua própria pasta, com seu próprio README detalhando o que foi feito.
 
 ## 🎯 Objetivos
 

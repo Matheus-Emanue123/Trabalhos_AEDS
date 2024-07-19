@@ -14,27 +14,38 @@ void executarTestes() {
     std::vector<std::function<void(std::vector<int>&, int&, int&)>> funcoes = {MaxMin1, MaxMin2, MaxMin3};
     std::vector<std::string> estados = {"aleatório", "crescente", "decrescente"};
 
-    for(auto& funcao : funcoes) {
-        for(int i = 0; i < sizeof(vetores)/sizeof(vetores[0]); i++) {
-            auto vetor = vetores[i]; 
-            for(auto& estado : estados) {
-                if(estado == "crescente") std::sort(vetor.begin(), vetor.end());
-                else if(estado == "decrescente") std::sort(vetor.rbegin(), vetor.rend());
+    std::vector<std::string> nomesFuncoes = {"MaxMin1", "MaxMin2", "MaxMin3"};
 
-                std::chrono::duration<double> tempo_total;
-                for(int j = 0; j < 10; j++) {
-                    auto inicio = std::chrono::high_resolution_clock::now();
-                    funcao(vetor, max, min);
-                    auto fim = std::chrono::high_resolution_clock::now();
-                    tempo_total += std::chrono::duration_cast<std::chrono::microseconds>(fim - inicio);
-                }
-                tempo_total /= 10.0;
-                std::string output = "Vetor " + std::to_string(i+1) + ", Max: " + std::to_string(max) + ", Min: " + std::to_string(min) + ", Tempo médio (" + estado + "): " + std::to_string(tempo_total.count()) + " microssegundos\n";
-                std::cout << output;
-                file << output;
-                file.flush(); 
-                            }
+    std::ofstream fileCSV("resultados.csv");
+fileCSV << "Função,Vetor,Max,Min,Estado,Tempo Médio\n";
+
+for(int f = 0; f < funcoes.size(); f++) {
+    auto& funcao = funcoes[f];
+    std::string nomeFuncao = nomesFuncoes[f];
+    for(int i = 0; i < sizeof(vetores)/sizeof(vetores[0]); i++) {
+        auto vetor = vetores[i]; 
+        for(auto& estado : estados) {
+            if(estado == "crescente") std::sort(vetor.begin(), vetor.end());
+            else if(estado == "decrescente") std::sort(vetor.rbegin(), vetor.rend());
+
+            std::chrono::duration<double> tempo_total;
+            for(int j = 0; j < 10; j++) {
+                auto inicio = std::chrono::high_resolution_clock::now();
+                funcao(vetor, max, min);
+                auto fim = std::chrono::high_resolution_clock::now();
+                tempo_total += std::chrono::duration_cast<std::chrono::microseconds>(fim - inicio);
+            }
+            tempo_total /= 10.0;
+            std::string output = "Função: " + nomeFuncao + ", Vetor " + std::to_string(i+1) + ", Max: " + std::to_string(max) + ", Min: " + std::to_string(min) + ", Tempo médio (" + estado + "): " + std::to_string(tempo_total.count()) + " microssegundos\n";
+            std::cout << output;
+            file << output;
+            file.flush(); 
+
+            fileCSV << nomeFuncao << "," << (i+1) << "," << max << "," << min << "," << estado << "," << tempo_total.count() << "\n";
+            fileCSV.flush();
         }
     }
+}
     file.close();
+    fileCSV.close();
 }

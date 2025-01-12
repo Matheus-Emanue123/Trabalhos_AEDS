@@ -8,7 +8,7 @@
 
 </div>
 
-## ☕ Introdução
+## ☕ Intro
 
 Este repositório contém todos os meus trabalhos para a disciplina de Algoritmos e Estruturas de Dados, do CEFET - MG Campus V. Cada trabalho está em sua própria pasta, com seu próprio README detalhando o que foi feito.
 
@@ -35,7 +35,6 @@ Cada pasta neste repositório representa um trabalho diferente. Aqui está uma v
 ![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 ![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-
 
 ## 📝 Licença
 

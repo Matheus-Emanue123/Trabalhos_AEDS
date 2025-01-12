@@ -1,0 +1,179 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: #222222;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "font": {"color": "white"}, "id": 5871, "label": "Planeta 5871", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 5871\u0027, \u0027st_teff\u0027: 6226.0, \u0027st_rad\u0027: 1.3, \u0027st_mass\u0027: 1.13, \u0027pl_insol\u0027: 1.15, \u0027pl_eqt\u0027: 264.0, \u0027pl_orbper\u0027: 572.376632, \u0027pl_orbsmax\u0027: 1.4062, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 5873, "label": "Planeta 5873", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 5873\u0027, \u0027st_teff\u0027: 6065.0, \u0027st_rad\u0027: 1.01, \u0027st_mass\u0027: 0.96, \u0027pl_insol\u0027: 0.69, \u0027pl_eqt\u0027: 232.0, \u0027pl_orbper\u0027: 572.383277, \u0027pl_orbsmax\u0027: 1.3337, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 5877, "label": "Planeta 5877", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 5877\u0027, \u0027st_teff\u0027: 6065.0, \u0027st_rad\u0027: 1.01, \u0027st_mass\u0027: 0.96, \u0027pl_insol\u0027: 0.69, \u0027pl_eqt\u0027: 232.0, \u0027pl_orbper\u0027: 572.383277, \u0027pl_orbsmax\u0027: 1.3337, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 5878, "label": "Planeta 5878", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 5878\u0027, \u0027st_teff\u0027: 6081.0, \u0027st_rad\u0027: 1.04, \u0027st_mass\u0027: 1.04, \u0027pl_insol\u0027: 85.73, \u0027pl_eqt\u0027: 234.0, \u0027pl_orbper\u0027: 572.3979, \u0027pl_orbsmax\u0027: 1.369, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 6351, "label": "Planeta 6351", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 6351\u0027, \u0027st_teff\u0027: 6330.0, \u0027st_rad\u0027: 1.07, \u0027st_mass\u0027: 1.14, \u0027pl_insol\u0027: 85.73, \u0027pl_eqt\u0027: 292.0, \u0027pl_orbper\u0027: 331.643, \u0027pl_orbsmax\u0027: 0.98, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 13902, "label": "Planeta 13902", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 13902\u0027, \u0027st_teff\u0027: 6325.0, \u0027st_rad\u0027: 1.35, \u0027st_mass\u0027: 1.25, \u0027pl_insol\u0027: 2.81, \u0027pl_eqt\u0027: 330.0, \u0027pl_orbper\u0027: 308.544422, \u0027pl_orbsmax\u0027: 0.9625, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 14708, "label": "Planeta 14708", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 14708\u0027, \u0027st_teff\u0027: 5303.0, \u0027st_rad\u0027: 0.83, \u0027st_mass\u0027: 0.93, \u0027pl_insol\u0027: 0.47, \u0027pl_eqt\u0027: 211.0, \u0027pl_orbper\u0027: 386.370548, \u0027pl_orbsmax\u0027: 1.0144, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 14712, "label": "Planeta 14712", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 14712\u0027, \u0027st_teff\u0027: 5303.0, \u0027st_rad\u0027: 0.83, \u0027st_mass\u0027: 0.93, \u0027pl_insol\u0027: 0.47, \u0027pl_eqt\u0027: 211.0, \u0027pl_orbper\u0027: 386.370548, \u0027pl_orbsmax\u0027: 1.0144, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 14713, "label": "Planeta 14713", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 14713\u0027, \u0027st_teff\u0027: 5119.0, \u0027st_rad\u0027: 0.83, \u0027st_mass\u0027: 0.82, \u0027pl_insol\u0027: 0.45, \u0027pl_eqt\u0027: 209.0, \u0027pl_orbper\u0027: 386.370512, \u0027pl_orbsmax\u0027: 0.9712, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 15064, "label": "Planeta 15064", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 15064\u0027, \u0027st_teff\u0027: 5636.0, \u0027st_rad\u0027: 1.35, \u0027st_mass\u0027: 1.1, \u0027pl_insol\u0027: 1.49, \u0027pl_eqt\u0027: 282.0, \u0027pl_orbper\u0027: 374.876239, \u0027pl_orbsmax\u0027: 1.0525, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 15065, "label": "Planeta 15065", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 15065\u0027, \u0027st_teff\u0027: 5636.0, \u0027st_rad\u0027: 1.35, \u0027st_mass\u0027: 1.1, \u0027pl_insol\u0027: 1.49, \u0027pl_eqt\u0027: 282.0, \u0027pl_orbper\u0027: 374.876239, \u0027pl_orbsmax\u0027: 1.0525, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 15067, "label": "Planeta 15067", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 15067\u0027, \u0027st_teff\u0027: 5636.0, \u0027st_rad\u0027: 1.35, \u0027st_mass\u0027: 1.1, \u0027pl_insol\u0027: 1.49, \u0027pl_eqt\u0027: 282.0, \u0027pl_orbper\u0027: 374.878133, \u0027pl_orbsmax\u0027: 1.0525, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 15078, "label": "Planeta 15078", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 15078\u0027, \u0027st_teff\u0027: 5977.0, \u0027st_rad\u0027: 1.02, \u0027st_mass\u0027: 1.13, \u0027pl_insol\u0027: 0.89, \u0027pl_eqt\u0027: 248.0, \u0027pl_orbper\u0027: 425.483539, \u0027pl_orbsmax\u0027: 1.1546, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 15080, "label": "Planeta 15080", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 15080\u0027, \u0027st_teff\u0027: 5977.0, \u0027st_rad\u0027: 1.02, \u0027st_mass\u0027: 1.13, \u0027pl_insol\u0027: 0.89, \u0027pl_eqt\u0027: 248.0, \u0027pl_orbper\u0027: 425.47785, \u0027pl_orbsmax\u0027: 1.1546, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 15081, "label": "Planeta 15081", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 15081\u0027, \u0027st_teff\u0027: 5977.0, \u0027st_rad\u0027: 1.02, \u0027st_mass\u0027: 1.13, \u0027pl_insol\u0027: 0.89, \u0027pl_eqt\u0027: 248.0, \u0027pl_orbper\u0027: 425.47785, \u0027pl_orbsmax\u0027: 1.1546, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 15868, "label": "Planeta 15868", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 15868\u0027, \u0027st_teff\u0027: 5757.0, \u0027st_rad\u0027: 1.52, \u0027st_mass\u0027: 1.17, \u0027pl_insol\u0027: 85.73, \u0027pl_eqt\u0027: 258.0, \u0027pl_orbper\u0027: 600.0, \u0027pl_orbsmax\u0027: 1.467, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 15869, "label": "Planeta 15869", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 15869\u0027, \u0027st_teff\u0027: 5755.0, \u0027st_rad\u0027: 1.55, \u0027st_mass\u0027: 1.1, \u0027pl_insol\u0027: 0.58, \u0027pl_eqt\u0027: 223.0, \u0027pl_orbper\u0027: 988.8811177, \u0027pl_orbsmax\u0027: 2.0091, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 15870, "label": "Planeta 15870", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 15870\u0027, \u0027st_teff\u0027: 5755.0, \u0027st_rad\u0027: 1.55, \u0027st_mass\u0027: 1.1, \u0027pl_insol\u0027: 0.58, \u0027pl_eqt\u0027: 223.0, \u0027pl_orbper\u0027: 988.8811177, \u0027pl_orbsmax\u0027: 2.0091, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 18929, "label": "Planeta 18929", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 18929\u0027, \u0027st_teff\u0027: 6109.0, \u0027st_rad\u0027: 1.18, \u0027st_mass\u0027: 1.04, \u0027pl_insol\u0027: 1.26, \u0027pl_eqt\u0027: 270.0, \u0027pl_orbper\u0027: 453.543999, \u0027pl_orbsmax\u0027: 1.1712, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 18930, "label": "Planeta 18930", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 18930\u0027, \u0027st_teff\u0027: 5874.0, \u0027st_rad\u0027: 3.01, \u0027st_mass\u0027: 1.52, \u0027pl_insol\u0027: 5.45, \u0027pl_eqt\u0027: 390.0, \u0027pl_orbper\u0027: 453.54212, \u0027pl_orbsmax\u0027: 1.3292, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 18931, "label": "Planeta 18931", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 18931\u0027, \u0027st_teff\u0027: 6109.0, \u0027st_rad\u0027: 1.18, \u0027st_mass\u0027: 1.04, \u0027pl_insol\u0027: 1.26, \u0027pl_eqt\u0027: 270.0, \u0027pl_orbper\u0027: 453.543999, \u0027pl_orbsmax\u0027: 1.1712, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 25714, "label": "Planeta 25714", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 25714\u0027, \u0027st_teff\u0027: 5509.61, \u0027st_rad\u0027: 0.94, \u0027st_mass\u0027: 0.96, \u0027pl_insol\u0027: 0.45, \u0027pl_eqt\u0027: 209.0, \u0027pl_orbper\u0027: 88.49568297, \u0027pl_orbsmax\u0027: 0.1006, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 26834, "label": "Planeta 26834", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 26834\u0027, \u0027st_teff\u0027: 5578.0, \u0027st_rad\u0027: 0.79, \u0027st_mass\u0027: 0.87, \u0027pl_insol\u0027: 0.56, \u0027pl_eqt\u0027: 220.0, \u0027pl_orbper\u0027: 384.843022, \u0027pl_orbsmax\u0027: 0.9892, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 26837, "label": "Planeta 26837", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 26837\u0027, \u0027st_teff\u0027: 5757.0, \u0027st_rad\u0027: 1.11, \u0027st_mass\u0027: 1.04, \u0027pl_insol\u0027: 1.1, \u0027pl_eqt\u0027: 265.0, \u0027pl_orbper\u0027: 384.843, \u0027pl_orbsmax\u0027: 1.046, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 26838, "label": "Planeta 26838", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 26838\u0027, \u0027st_teff\u0027: 5579.0, \u0027st_rad\u0027: 0.8, \u0027st_mass\u0027: 0.89, \u0027pl_insol\u0027: 0.56, \u0027pl_eqt\u0027: 220.0, \u0027pl_orbper\u0027: 384.847556, \u0027pl_orbsmax\u0027: 0.994, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 27008, "label": "Planeta 27008", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 27008\u0027, \u0027st_teff\u0027: 5439.49, \u0027st_rad\u0027: 0.81, \u0027st_mass\u0027: 0.96, \u0027pl_insol\u0027: 0.5, \u0027pl_eqt\u0027: 214.0, \u0027pl_orbper\u0027: 38.47876131, \u0027pl_orbsmax\u0027: 0.1006, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 28330, "label": "Planeta 28330", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 28330\u0027, \u0027st_teff\u0027: 5551.0, \u0027st_rad\u0027: 0.9, \u0027st_mass\u0027: 0.95, \u0027pl_insol\u0027: 0.82, \u0027pl_eqt\u0027: 242.0, \u0027pl_orbper\u0027: 328.2399546, \u0027pl_orbsmax\u0027: 0.9166, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 28332, "label": "Planeta 28332", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 28332\u0027, \u0027st_teff\u0027: 5551.0, \u0027st_rad\u0027: 0.9, \u0027st_mass\u0027: 0.95, \u0027pl_insol\u0027: 0.82, \u0027pl_eqt\u0027: 242.0, \u0027pl_orbper\u0027: 328.2399546, \u0027pl_orbsmax\u0027: 0.9166, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 28337, "label": "Planeta 28337", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 28337\u0027, \u0027st_teff\u0027: 5551.0, \u0027st_rad\u0027: 0.9, \u0027st_mass\u0027: 0.95, \u0027pl_insol\u0027: 0.82, \u0027pl_eqt\u0027: 242.0, \u0027pl_orbper\u0027: 328.2399546, \u0027pl_orbsmax\u0027: 0.9166, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 28339, "label": "Planeta 28339", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 28339\u0027, \u0027st_teff\u0027: 5234.0, \u0027st_rad\u0027: 0.85, \u0027st_mass\u0027: 0.93, \u0027pl_insol\u0027: 0.59, \u0027pl_eqt\u0027: 224.0, \u0027pl_orbper\u0027: 328.240201, \u0027pl_orbsmax\u0027: 0.9084, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 32470, "label": "Planeta 32470", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 32470\u0027, \u0027st_teff\u0027: 5930.0, \u0027st_rad\u0027: 1.65, \u0027st_mass\u0027: 1.23, \u0027pl_insol\u0027: 85.73, \u0027pl_eqt\u0027: 316.0, \u0027pl_orbper\u0027: 394.6107, \u0027pl_orbsmax\u0027: 1.129, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 32595, "label": "Planeta 32595", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 32595\u0027, \u0027st_teff\u0027: 5576.31, \u0027st_rad\u0027: 0.94, \u0027st_mass\u0027: 0.96, \u0027pl_insol\u0027: 0.8, \u0027pl_eqt\u0027: 241.0, \u0027pl_orbper\u0027: 10.35863224, \u0027pl_orbsmax\u0027: 0.1006, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 35079, "label": "Planeta 35079", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 35079\u0027, \u0027st_teff\u0027: 5614.0, \u0027st_rad\u0027: 0.95, \u0027st_mass\u0027: 0.96, \u0027pl_insol\u0027: 85.73, \u0027pl_eqt\u0027: 216.0, \u0027pl_orbper\u0027: 11.185, \u0027pl_orbsmax\u0027: 0.048, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 35376, "label": "Planeta 35376", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 35376\u0027, \u0027st_teff\u0027: 5723.2, \u0027st_rad\u0027: 1.52, \u0027st_mass\u0027: 0.96, \u0027pl_insol\u0027: 0.99, \u0027pl_eqt\u0027: 255.0, \u0027pl_orbper\u0027: 95.174, \u0027pl_orbsmax\u0027: 0.1006, \u0027pl_orbeccen\u0027: 0.0}"}, {"color": "#97c2fc", "font": {"color": "white"}, "id": 38047, "label": "Planeta 38047", "shape": "dot", "title": "{\u0027label\u0027: \u0027Planeta 38047\u0027, \u0027st_teff\u0027: 5778.0, \u0027st_rad\u0027: 1.0, \u0027st_mass\u0027: 1.0, \u0027pl_insol\u0027: 1.0, \u0027pl_eqt\u0027: 288.0, \u0027pl_orbper\u0027: 365.25, \u0027pl_orbsmax\u0027: 1.0, \u0027pl_orbeccen\u0027: 0.0167}"}]);
+                  edges = new vis.DataSet([{"from": 5873, "title": "dist=0.00", "to": 5877, "value": 0.0}, {"from": 14708, "title": "dist=0.00", "to": 14712, "value": 0.0}, {"from": 15064, "title": "dist=0.00", "to": 15065, "value": 0.0}, {"from": 15064, "title": "dist=0.00", "to": 15067, "value": 0.0018939999999929569}, {"from": 15065, "title": "dist=0.00", "to": 15067, "value": 0.0018939999999929569}, {"from": 15078, "title": "dist=0.01", "to": 15080, "value": 0.005689000000018041}, {"from": 15078, "title": "dist=0.01", "to": 15081, "value": 0.005689000000018041}, {"from": 15080, "title": "dist=0.00", "to": 15081, "value": 0.0}, {"from": 15869, "title": "dist=0.00", "to": 15870, "value": 0.0}, {"from": 18929, "title": "dist=0.00", "to": 18931, "value": 0.0}, {"from": 26834, "title": "dist=1.00", "to": 26838, "value": 1.0002717616508026}, {"from": 28330, "title": "dist=0.00", "to": 28332, "value": 0.0}, {"from": 28330, "title": "dist=0.00", "to": 28337, "value": 0.0}, {"from": 28332, "title": "dist=0.00", "to": 28337, "value": 0.0}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.01,
+            "damping": 0.4,
+            "gravitationalConstant": -50,
+            "springConstant": 0.08,
+            "springLength": 100
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

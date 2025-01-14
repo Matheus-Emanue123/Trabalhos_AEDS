@@ -9,7 +9,7 @@ def main_with_log_transform():
     print("Executando a versão com transformações logarítmicas...")
 
     # Configurações
-    data_file = r"C:\Users\hecla\OneDrive\Área de Trabalho\CEFET\4 periodo\AEDS II\TRABALHOS\trabalho 01 indiviudal\src\normalized_cumulative.csv"
+    data_file = r"C:\Users\hecla\OneDrive\Área de Trabalho\CEFET\3 periodo\AEDS II\TRABALHOS\trabalho 01 indiviudal\databases\normalized_cumulative.csv"
     comparison_columns = ["koi_prad", "koi_teq", "koi_period", "koi_insol", "koi_sma"]
 
     # Dados da Terra
